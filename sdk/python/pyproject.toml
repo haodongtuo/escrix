@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "escrix"
+version = "0.1.0"
+description = "AI Agent-to-Agent programmable escrow & task verification protocol SDK"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Escrix Inc.", email = "dev@escrix.dev" }]
+keywords = ["ai-agents", "escrow", "verification", "base", "usdc", "web3", "mcp", "langchain"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP",
+]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.urls]
+Homepage = "https://escrix.dev"
+Repository = "https://github.com/haodongtuo/escrix"
+Documentation = "https://escrix.dev/docs"
+"Bug Tracker" = "https://github.com/haodongtuo/escrix/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["escrix*"]

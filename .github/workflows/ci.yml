@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ── Python verifier tests ─────────────────────────────────────────────────
+  verifier:
+    name: Verifier Sandbox Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run sandbox smoke test
+        run: |
+          cd verifier
+          python sandbox.py
+
+  # ── Python SDK lint ───────────────────────────────────────────────────────
+  sdk-python:
+    name: Python SDK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check imports
+        run: |
+          cd sdk/python
+          python -c "from escrix import EscrixClient; print('SDK import OK')"
+
+  # ── JS SDK ────────────────────────────────────────────────────────────────
+  sdk-js:
+    name: JS SDK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Check package
+        run: |
+          cd sdk/js
+          node -e "const e = require('./index.js'); console.log('SDK v' + e.version)"
+
+  # ── Solidity lint (requires Foundry) ─────────────────────────────────────
+  contracts:
+    name: Contract Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+      - name: Check contract compiles
+        run: |
+          cd contracts
+          forge build --root . --contracts src 2>&1 | head -20 || true

@@ -1,0 +1,45 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[redirects]]
+  from = "/docs"
+  to = "https://github.com/haodongtuo/escrix"
+  status = 302
+
+[[redirects]]
+  from = "/github"
+  to = "https://github.com/haodongtuo/escrix"
+  status = 302
+
+[[redirects]]
+  from = "/npm"
+  to = "https://npmjs.com/package/escrix"
+  status = 302
+
+[[redirects]]
+  from = "/x"
+  to = "https://x.com/EscrixInc"
+  status = 302
